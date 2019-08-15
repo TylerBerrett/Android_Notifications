@@ -52,7 +52,6 @@ class FullscreenActivity : AppCompatActivity() {
 
         val tapped = intent.getStringExtra(MainActivity.INTENT_KEY)
         fullscreen_content.text = tapped
-        println(tapped)
 
         mVisible = true
 

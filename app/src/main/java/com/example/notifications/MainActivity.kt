@@ -28,9 +28,11 @@ class MainActivity : AppCompatActivity() {
 
         btn_get_notification.setOnClickListener {
             val intent = Intent(this, FullscreenActivity::class.java)
-            
             intent.putExtra(INTENT_KEY, "Notification Tapped")
             val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+
+            intent.putExtra(INTENT_KEY, "NICE")
+            val pendingIntent2 = PendingIntent.getActivity(this, 1, intent, PendingIntent.FLAG_ONE_SHOT)
 
 
 
@@ -57,6 +59,7 @@ class MainActivity : AppCompatActivity() {
                 .setDefaults(Notification.DEFAULT_ALL)
                 .setAutoCancel(true)
                 .setContentIntent(pendingIntent)
+                .addAction(R.drawable.ic_action_name, "Action", pendingIntent2)
 
             notificationManager.notify(NOTIFICATION_ID_INSTENT, builder.build())
 
