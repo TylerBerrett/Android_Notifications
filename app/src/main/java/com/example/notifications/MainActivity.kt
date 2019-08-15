@@ -3,7 +3,9 @@ package com.example.notifications
 import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -16,6 +18,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         const val NOTIFICATION_ID_INSTENT = 12
+        const val INTENT_KEY = "key"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,6 +27,13 @@ class MainActivity : AppCompatActivity() {
 
 
         btn_get_notification.setOnClickListener {
+            val intent = Intent(this, FullscreenActivity::class.java)
+            
+            intent.putExtra(INTENT_KEY, "Notification Tapped")
+            val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT)
+
+
+
             val notificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             val channelId = "channelId"
 
@@ -45,7 +55,12 @@ class MainActivity : AppCompatActivity() {
                 .setColor(ContextCompat.getColor(this, R.color.colorPrimary))
                 .setPriority(NotificationManager.IMPORTANCE_HIGH)
                 .setDefaults(Notification.DEFAULT_ALL)
+                .setAutoCancel(true)
+                .setContentIntent(pendingIntent)
+
             notificationManager.notify(NOTIFICATION_ID_INSTENT, builder.build())
+
+
         }
 
     }
